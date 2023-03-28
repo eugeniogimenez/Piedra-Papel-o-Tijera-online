@@ -195,7 +195,9 @@ const state = {
 
   // // IMPORTA LA DATA DEL GAMEROOM Y ESCUCHA LOS CAMBIOS
   // connectToGamerooms(roomId) {
+
   //   const chatroomRef = realtimeDB.ref("/gamerooms/" + roomId + "/currentgame");
+
   //   chatroomRef.on("value", (snapshot) => {
   //     const gameRoomData = snapshot.val();
 
@@ -214,7 +216,7 @@ const state = {
   //   });
   // },
 
-  connectToGameRooms(roomId) {
+  connectToGamerooms(roomId) {
     //rtdbGameroomId: es el parámetro de la sala específica a la que se hace referencia
     console.log("soy state.connectToGameRooms con RTDBgameroomId", roomId);
 
@@ -232,7 +234,7 @@ const state = {
       currentState.currentGame = gameRoomData; //el juego del momento
 
       const fireBaseScorePromise = state.importGameRoomScore(
-        currentState.roomid
+        currentState.roomId
       );
 
       // cuando se resuelve la promesa, se actualiza el estado actual

@@ -1,6 +1,6 @@
 WEBAPP PIEDRA PAPEL O TIJERA ONLINE (TWO PLAYER MODE)
 
-Link de acceso a la webapp en Heroku: https://p-p-t-v2.herokuapp.com
+Link de acceso a la webapp en Render: https://piedra-papel-o-tijera-online.onrender.com
 
 Link de la documentación de la API en postman: https://documenter.getpostman.com/view/17261810/UVJbGHZT
 
