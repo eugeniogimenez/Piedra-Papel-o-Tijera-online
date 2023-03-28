@@ -4,11 +4,11 @@
   "license": "MIT",
   "scripts": {
     "dev:client": "parcel serve ./client/index.html",
-    "dev:server": "nodemon --watch ./server/index.ts --exec ts-node ./server/dev.ts",
+    "dev:server": "nodemon --watch ./server/api.ts --exec ts-node ./server/dev.ts",
     "build:client": "parcel build ./client/index.html",
     "build:server": "tsc",
     "build": "yarn build:client && yarn build:server",
-    "start": "node server/index.js"
+    "start": "node ./server/api.js"
   },
   "dependencies": {
     "@firebase/database": "^0.14.4",

@@ -1,3 +1,8 @@
-.parcel-cache
-dist
 node_modules
+dist
+.parcel-cache
+.env
+dev.ts
+db.js
+index.js
+key.json
