@@ -68,6 +68,8 @@ const state = {
 
   // CREA UN NUEVO USUARIO Y DEVUELVE SU ID
   createNewUser(userData) {
+    console.log("state.createNewUser con userData: ", userData);
+
     return fetch(API_BASE_URL + "/signup", {
       method: "post",
       headers: { "content-type": "application/json" },

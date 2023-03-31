@@ -14,6 +14,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 // ENDPOINTS
+//CREATE NEW USER
 // SIGNUP - CREA UN NUEVO USUARIO EN FIRESTORE
 app.post("/signup", function (req, res) {
     var userName = req.body.name;
@@ -21,10 +22,11 @@ app.post("/signup", function (req, res) {
         .where("name", "==", userName)
         .get()
         .then(function (searchResponse) {
-        // VERIFICA QUE NO HAYA UN DOC CON EL EMAIL IGUAL AL USER EMAIL
+        // VERIFICA QUE NO HAYA UN DOC CON EL NAME IGUAL AL USER NAME
         if (searchResponse.empty) {
+            //Si no lo encuentra, lo agrega
             usersCollectionRef.add({ name: userName }).then(function (newUserRef) {
-                // DEVUELVE UN OBJETO CON EL ID DEL NUEVO USUSARIO CORRESPONDIENTE
+                // DEVUELVE UN OBJETO CON EL ID DEL NUEVO USUARIO CORRESPONDIENTE
                 res.status(200).json({
                     id: newUserRef.id,
                     new: true,
@@ -32,14 +34,16 @@ app.post("/signup", function (req, res) {
             });
         }
         else {
-            // SI EL EMAIL YA ESTABA REGRISTRADO EN UN USER, DEVUELVE EL ID DEL USUARIO CORRESPONDIENTE
+            // SI EL NAME YA ESTABA REGRISTRADO, DEVUEVE UN MENSAJE
             res.status(400).json({
-                message: "El nombre que ingresaste ya corresponde a un jugador registrado.",
+                message: `El nombre ${userName} ya corresponde a un jugador registrado.`,
             });
         }
     });
 });
-// CREA UN NUEVO GAMEROOM DENTRO DE LA RTDB Y AL MISMO TIEMPO SETEA CREA Y SETEA LOS DATOS EN FIRESTORE
+//CREATE NEW GAMEROOM
+// CREA UN NUEVO GAMEROOM DENTRO DE LA RTDB
+// Y AL MISMO TIEMPO CREA Y SETEA LOS DATOS EN FIRESTORE
 app.post("/gamerooms", (req, res) => {
     const userId = req.body.userId;
     const ownerName = req.body.ownerName;
@@ -51,9 +55,9 @@ app.post("/gamerooms", (req, res) => {
         // DE SER ASÍ, CREA UNA NUEVA ROOM CON UN ID
         if (doc.exists) {
             // CREAMOS LA REFERENCIA DEL NUEVO ROOM
-            const newRoomRef = database_1.realtimeDB.ref("gamerooms/" + (0, nanoid_1.nanoid)(10));
-            // STEAMOS EL OWNER COMO EL USER QUE INGRESO EL BODY
-            newRoomRef
+            const newRoomRef = database_1.realtimeDB.ref("gamerooms/" + (0, nanoid_1.nanoid)(10)); //rtdb
+            // SETEAMOS EL OWNER COMO EL USER QUE INGRESO EL BODY
+            newRoomRef //rtdb
                 .set({
                 currentgame: {
                     player1: {
@@ -111,23 +115,23 @@ app.post("/gamerooms", (req, res) => {
         }
     });
 });
+//SET PLAYER 2 SCORE
 // AGREGA EL SCORE Y EL NOMBRE INICIAL DEL PLAYER 2 A FIRESTORE
 app.post("/gameroomsscore/:roomid", (req, res) => {
     const gameRoomId = req.params.roomid;
     const playerName = req.body.playerName;
-    gameroomsCollectionRef
+    gameroomsCollectionRef //firestore
         .doc(gameRoomId.toString())
         .get()
         .then((snap) => {
         const actualData = snap.data();
-        console.log(actualData);
         actualData.score["player2"] = {
             name: playerName,
             score: 0,
         };
         gameroomsCollectionRef
             .doc(gameRoomId.toString())
-            .update(actualData)
+            .update(actualData) //Se actualiza sólo los datos del player2
             .then(() => {
             res.json({
                 message: "el score se actualizo correctamente",
@@ -135,7 +139,9 @@ app.post("/gameroomsscore/:roomid", (req, res) => {
         });
     });
 });
-// AGREGA UN PUNTO AL SCORE DE FIREBASE, PIDIENDO PARAMETRO EL ROOMID Y EL NOMBRE DEL USUARIO Y SU POSICIÓN EN EL JUEGO COMO REFERENCIA
+//ADD VICTORY POINT
+// AGREGA UN PUNTO AL SCORE DE FIREBASE, PIDIENDO COMO PARAMETRO EL ROOMID
+// Y EL NOMBRE DEL USUARIO Y SU POSICIÓN EN EL JUEGO COMO REFERENCIA
 app.post("/gamedatascore/:roomid", (req, res) => {
     const gameRoomId = req.params.roomid;
     const playerName = req.body.playerName;
@@ -160,6 +166,7 @@ app.post("/gamedatascore/:roomid", (req, res) => {
         });
     });
 });
+//GET GAMEROOM SCORES
 // DEVUELVE EL SCORE DE LA BASE DE DATOS DE FIREBASE
 app.get("/gameroomsscores/:roomid", (req, res) => {
     const gameRoomId = req.params.roomid;
@@ -171,17 +178,18 @@ app.get("/gameroomsscores/:roomid", (req, res) => {
         res.json(actualData.score);
     });
 });
+// GET GAMEROOM LONG ID
 // DEVUELVE EL ID LARGO VERIFICANDO EL USERID Y EL GAMEROOMID
 app.get("/gamerooms/:roomId", (req, res) => {
     const { userId } = req.query;
     const { roomId } = req.params;
-    console.log(roomId);
     // REVISA SI EL USER ID CORRESPONDE A ALGUN USUARIO DE USERS EN FIRESTORE
     usersCollectionRef
         .doc(userId.toString())
         .get()
         .then((doc) => {
-        // SI EXISTE, VA A BUSCAR EL ROOM ID LARGO DENTRO DE FIRESTORE, USANDO EL ID CORTO
+        // SI EXISTE, VA A BUSCAR EL ROOM ID LARGO DENTRO DE FIRESTORE,
+        // USANDO EL ID CORTO
         if (doc.exists) {
             gameroomsCollectionRef
                 .doc(roomId)
@@ -202,7 +210,7 @@ app.get("/gamerooms/:roomId", (req, res) => {
             });
         }
         else {
-            // SI NO EXISTE, DEVUELVE UN ERROR 401
+            // SI NO EXISTE EL ROOM, DEVUELVE UN ERROR 401
             res.status(401).json({
                 message: "El id del usuario no existe.",
             });
@@ -216,7 +224,7 @@ app.post("/auth", (req, res) => {
         .where("name", "==", userName)
         .get()
         .then((searchResponse) => {
-        // VERIFICA QUE EL EMAIL DEL USER EXISTA EN ALGUN DOC
+        // VERIFICA QUE EL NOMBRE DEL USER EXISTA EN ALGUN DOC
         if (searchResponse.empty) {
             res.status(404).json({
                 message: "El nombre que ingresaste no corresponde a un usuario registrado.",
@@ -230,6 +238,7 @@ app.post("/auth", (req, res) => {
         }
     });
 });
+//CONNECT PLAYER, RESTART PLAYER, START PLAYER, MAKE AND CHOICE
 // CONNECTA A LOS JUGADORES AL GAMEROOM
 app.post("/gamedata/:id", function (req, res) {
     const player = req.query.player;
@@ -238,6 +247,7 @@ app.post("/gamedata/:id", function (req, res) {
         res.status(201).json({ message: player + " conectado" });
     });
 });
+//READY PLAYER TO PLAY
 // DEFINE QUE EL JUGADOR ESTA LISTO PARA INICIAR
 app.post("/gamestart/:id", function (req, res) {
     const player = req.query.player;
@@ -246,22 +256,25 @@ app.post("/gamestart/:id", function (req, res) {
         res.status(201).json({ message: player + " listo para jugar" });
     });
 });
-// DESCONECTA A LOS JUGADORES AL GAMEROOM
+//DISCONNECT PLAYER
+// DESCONECTA A LOS JUGADORES DEL GAMEROOM
 app.post("/disconectplayer/:id", function (req, res) {
     const player = req.query.player;
     const playerRef = database_1.realtimeDB.ref("/gamerooms/" + req.params.id + "/currentgame/" + player);
     return playerRef.update(req.body, () => {
-        res.status(201).json({ message: player + "desconectado" });
+        res.status(201).json({ message: player + " desconectado" });
     });
 });
+// RESET THE PLAY AND SEND THE PLAYERS TO THE GAMEROOM
 // RESETEA LA JUGADA Y ENVIA A LOS JUGADORES AL GAMEROOM
 app.post("/restartplayer/:id", function (req, res) {
     const player = req.query.player;
     const playerRef = database_1.realtimeDB.ref("/gamerooms/" + req.params.id + "/currentgame/" + player);
     return playerRef.update(req.body, () => {
-        res.status(201).json({ message: player + "desconectado" });
+        res.status(201).json({ message: player + " desconectado" });
     });
 });
+// PLAYER IS READY TO START
 // DEFINE QUE EL JUGADOR ESTA LISTO PARA INICIAR
 app.post("/gamestart/:id", function (req, res) {
     const player = req.query.player;
@@ -270,7 +283,8 @@ app.post("/gamestart/:id", function (req, res) {
         res.status(201).json({ message: player + " listo para jugar" });
     });
 });
-// DEFINE QUE EL JUGADOR ESTA LISTO PARA INICIAR
+// PLAYER ALREADY PLAYED
+// DEFINE QUE EL JUGADOR YA JUGÓ
 app.post("/handchoice/:id", function (req, res) {
     const player = req.query.player;
     const playerRef = database_1.realtimeDB.ref("/gamerooms/" + req.params.id + "/currentgame/" + player);

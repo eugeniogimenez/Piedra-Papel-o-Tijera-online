@@ -2,7 +2,7 @@ WEBAPP PIEDRA PAPEL O TIJERA ONLINE (TWO PLAYER MODE)
 
 Link de acceso a la webapp en Render: https://piedra-papel-o-tijera-online.onrender.com
 
-Link de la documentación de la API en postman: https://documenter.getpostman.com/view/17261810/UVJbGHZT
+Link de la documentación de la API en postman: https://documenter.getpostman.com/view/21827106/2s93RUuBxB
 
 Webapp creada para el desafío final del modulo 6 de la carrera de programación web fullstack en APXschool.
 
