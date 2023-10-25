@@ -1,17 +1,46 @@
-WEBAPP PIEDRA PAPEL O TIJERA ONLINE (TWO PLAYER MODE)
+# CONSULTORIO ODONTOLÓGICO <a href="https://getbootstrap.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/bootstrap/bootstrap-plain-wordmark.svg" alt="bootstrap" width="40" height="40"/> </a> <a href="https://www.java.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/java/java-original.svg" alt="java" width="50" height="50"/> </a> <a href="https://www.mysql.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mysql/mysql-original-wordmark.svg" alt="mysql" width="50" height="50"/> </a> <a href="https://www.docker.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/docker/docker-original-wordmark.svg" alt="docker" width="40" height="40"/> </a>
 
-Link de acceso a la webapp en Render: https://piedra-papel-o-tijera-online.onrender.com
+## Descripcion General:
+El proyecto consiste en un sistema para la administración de un Consultorio Odontológico. Está pensado principalmente para ser manejado por un secretario administrativo y los distintos odontólogos.
 
-Link de la documentación de la API en postman: https://documenter.getpostman.com/view/21827106/2s93RUuBxB
+ Permite básicamente la carga de pacientes, con sus respectivos datos, tratamientos, y  asignaciones de turnos.
 
-Webapp creada para el desafío final del modulo 6 de la carrera de programación web fullstack en APXschool.
+ Posee un sistema de login para seguridad.
 
-El frontend fue diseñado para poder soportar correctamente los componentes dentro de las resoluciones de Iphone5, Iphone 6 y Desktop, con la intención de que sea responsivo para la mayor cantidad de pantallas posibles.
+## Uso:
+La dirección de la app es: https://consultorio-odontologico.onrender.com/ConsultorioOdontologico-1.0-SNAPSHOT/login.jsp
 
-La arquitectura web esta basada en pages montadas como custom elements, usando vaadin como router para redirecciónar.
+El usuario de prueba es:
 
-La escritura del codigo esta basada en funciones declarativas, describiendo al inicio de cada función que logica sucedera, los metodos para el frontend,backend y basics para manejar el state, estan detallados dentro del archivo "state.ts".
+##### Usuario: Admin
+##### Login: 1234
 
-Para persistir los datos y poder recargar las paginas, se utilizo el recurso de sessionStorage, para que cada vez que el usuario cierre el navegador, los datos se pierdan y simule el volver a tener que iniciar, dandole la oportunidad de entrar y crear diferentes salas cuando lo desee.
+ IMPORTANTE: al usarse un servidor de pruebas (Clever Cloud) se debe tener paciencia en cuanto a la carga de información ya que puede tener demoras.
 
-Cada vez que el jugador cierre la pagina o recargue la pagina, su usuario dentro de la base de datos volvera al estado de "no-listo". Para que se vea obligado a volver a darse como "iniciado", evitando que la app sufra situaciones inesperadas.
+## Front:
+Se utiliza como base una plantilla confeccionada en Boostrap <a href="https://getbootstrap.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/bootstrap/bootstrap-plain-wordmark.svg" alt="bootstrap" width="30" height="30"/> </a>, la cuál se le da una estructura de componentes para las distintas páginas. Se utiliza JSP.
+
+## Back:
+El back se construye en base a Servlets para las distinas funciones.  Las tecnologías usadas principalmente son:
+
+- ##### JAVA <a href="https://www.java.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/java/java-original.svg" alt="java" width="30" height="30"/> </a>
+- ##### Servlets
+- ##### Docker <a href="https://www.docker.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/docker/docker-original-wordmark.svg" alt="docker" width="30" height="30"/> </a>
+- ##### MySQL <a href="https://www.mysql.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mysql/mysql-original-wordmark.svg" alt="mysql" width="30" height="30"/> </a>
+- ##### JPA (EclipseLink)
+- ##### JSP
+- ##### Boostrap <a href="https://getbootstrap.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/bootstrap/bootstrap-plain-wordmark.svg" alt="bootstrap" width="30" height="30"/> </a>
+
+## Arquitectura:
+Se sigue el modelo MVC para trabajar por capas, principalmente las de Logica y Persistencia.
+
+## Base de Datos:
+Utilización de MySQL <a href="https://www.mysql.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mysql/mysql-original-wordmark.svg" alt="mysql" width="30" height="30"/> </a> mediante el servicio de Clever Cloud.
+
+## Docker <a href="https://www.docker.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/docker/docker-original-wordmark.svg" alt="docker" width="40" height="40"/> </a>:
+La app se dockerizó para su posterior despliegue.
+
+## Diagrama UML:
+Se adjunta el diagrama UML donde se muestran las distintas relaciones de clases.
+
+https://drive.google.com/file/d/13NLkbEsxkjllju42LSSjwZ-1V499CiKj/view?usp=sharing
