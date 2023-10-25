@@ -13,7 +13,7 @@ Se sigue el modelo MVC para trabajar por capas, y el modelo Cliente/Servidor par
 ## Front:
 El front está construido en TypeScript, bajo un esquema de Pages y Web Components que se van renderizando y cambiando via Router, y mediante el intercambio de información entre los componentes vía un State Manager.
 
- Además el consumo de datos del Front es vía "fetch" desde las distintas API´s generadas en el backend.
+ Además el consumo de datos del Front es vía "fetch" desde las distintas API´s generadas en el backend. El cuanto al desarrollo visual, está adaptado de manera Responsive, pensando primero en las pantallas pequeñas hasta las más grandes. 
 
 ## Back:
 El back se construye en Node.js, y mediante API's se puede brindar la información desde la base de datos Firebase, que el usuario solicita.
